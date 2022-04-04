@@ -29,7 +29,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route(base_url, methods=['GET', 'POST'])
+@app.route(f'{base_url}', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -53,7 +53,7 @@ def home():
     return render_template('home.html')
 
 
-@app.route(base_url + '/uploads/<filename>')
+@app.route(f'{base_url}/uploads/<filename>')
 def uploaded_file(filename):
     here = os.getcwd()
     image_path = os.path.join(here, app.config['UPLOAD_FOLDER'], filename)
@@ -95,7 +95,7 @@ def uploaded_file(filename):
         return render_template('results.html', labels='No Emotion', old_filename=filename, filename=filename)
 
 
-@app.route('/files/<path:filename>')
+@app.route(f'{base_url}/uploads/<path:filename>')
 def files(filename):
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 

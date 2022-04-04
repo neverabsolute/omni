@@ -3,14 +3,23 @@ A scaffold for deploying dockerized flask applications.
 
 ### Quickstart Guide for Local Development
 
+First clone this repository through 
+
+`https://github.com/organization-x/omni`
+
 cd into the `/app` folder
 
 `python3 -m pip install -r requirements.txt`
 
 edit line 29 the `main.py` file to either the URL of the cocalc server you are on or `localhost` if you are running it on your own PC
 
-run
- 
+Then, clone ultralytics yolov5 in the app folder, by running 
+
+`git clone https://github.com/ultralytics/yolov5`
+`pip install -r yolov5/requirements.txt`
+
+Run
+
  `python3 -m main`
 
 to start the server on local, most changes while developing will be picked up in realtime by the server
@@ -55,12 +64,16 @@ The files/directories which you will need to edit are **bolded**
 - host_config
 - app/
      - **main.py**
-     - **pytorch_model.bin** <- you will need to upload this yourself after cloning the repo when developing the site
+     - **best.pt** <- you will need to upload this yourself after cloning the repo when developing the site
      - **requirements.txt**
      - **utils.py**
      - templates/
           - **index.html**
-### pytorch_model.bin ###
+
+### How to upload best.pt to your file structure?
+Run 
+`cp ../path/to/best.pt best.pt`
+### best.pt ###
 The weights file - must upload if you are running file on coding center or are trying to deploy.
 ### main.py ###
 Contains the main flask app itself.

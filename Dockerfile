@@ -6,6 +6,7 @@ RUN apt-get update &&\
     apt-get install\
     ffmpeg\
     gcc\
+    git-all\
     libsm6\
     libxext6\
     musl-dev\
@@ -25,6 +26,7 @@ RUN apt-get update &&\
 # copy nginx configuration file, pip requirements, and entrypoint to be used when starting Docker container
 ADD nginx_host /etc/nginx/sites-enabled/default
 ADD entrypoint.sh /entrypoint.sh
+ADD config.py /app/config.py
 ADD app/requirements.txt /app/requirements.txt
 
 # install pip and dependencies

@@ -1,7 +1,18 @@
-# Universal Project Scaffold
+# Computer Vision Web Scaffold
 A scaffold for deploying dockerized flask applications.
 
+If you have any questions, feel free to open an issue on [Github](https://github.com/organization-x/omni/issues).
+
+### Video Guide
+[![Deploy a Web Project with Flask](https://img.youtube.com/vi/JUb-PpejA7w/0.jpg)](https://youtu.be/JUb-PpejA7w "Deploy a Web Project with Flask")
+
+This guide covers how you can quickly deploy most projects with the [Flask](https://flask.palletsprojects.com/) framework and our omni scaffold.
+
 ### Quickstart Guide for Local Development
+
+First clone this repository through 
+
+`https://github.com/organization-x/omni`
 
 cd into the `/app` folder
 
@@ -9,8 +20,13 @@ cd into the `/app` folder
 
 edit line 29 the `main.py` file to either the URL of the cocalc server you are on or `localhost` if you are running it on your own PC
 
-run
- 
+Then, clone ultralytics yolov5 in the app folder, by running 
+
+`git clone https://github.com/ultralytics/yolov5`
+`pip install -r yolov5/requirements.txt`
+
+Run
+
  `python3 -m main`
 
 to start the server on local, most changes while developing will be picked up in realtime by the server
@@ -41,6 +57,15 @@ or
 
 `docker exec -it omni /bin/bash` for an interactive bash terminal (this option only works if the container is running and not stuck in a restart loop)
 
+### Common Issues
+
+`$'\r': command not found` when attempting to start docker container
+
+this is caused by the the `entrypoint.sh` script somehow having CLRF line endings instead of LF line endings.
+
+to fix this run
+
+`sed -i 's/\r$//' entrypoint.sh`
 
 ### File Structure
 The files/directories which you will need to edit are **bolded**
@@ -48,6 +73,7 @@ The files/directories which you will need to edit are **bolded**
 **DO NOT TOUCH OTHER FILES. THIS MAY RESULT IN YOUR PROJECT BEING UNABLE TO RUN**
 
 - .gitignore
+- config.py
 - Dockerfile
 - READMD.md
 - entrypoint.sh
@@ -55,12 +81,16 @@ The files/directories which you will need to edit are **bolded**
 - host_config
 - app/
      - **main.py**
-     - **pytorch_model.bin** <- you will need to upload this yourself after cloning the repo when developing the site
+     - **best.pt** <- you will need to upload this yourself after cloning the repo when developing the site
      - **requirements.txt**
      - **utils.py**
      - templates/
           - **index.html**
-### pytorch_model.bin ###
+
+### How to upload best.pt to your file structure?
+Run 
+`cp ../path/to/best.pt best.pt`
+### best.pt ###
 The weights file - must upload if you are running file on coding center or are trying to deploy.
 ### main.py ###
 Contains the main flask app itself.
@@ -79,6 +109,7 @@ Contains common functions used by the flask app. Put things here that are used m
 ### templates/ ###
 Contains the HTML pages used for the webpage. Edit these to fit your project. index.html is the demo page.
 ### Files used for deployment ###
+`config.py`
 `Dockerfile`
 `entrypoint.sh`
 `nginx_host`
